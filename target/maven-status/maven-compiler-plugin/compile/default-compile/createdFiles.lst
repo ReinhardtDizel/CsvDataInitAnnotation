@@ -1,0 +1,6 @@
+academy\reyngardt\annotation\processor\CsvDataInit.class
+academy\reyngardt\annotation\processor\CsvDataInitProcessor.class
+academy\reyngardt\annotation\processor\CsvDataInitVisitor.class
+academy\reyngardt\annotation\processor\CsvDataInitVisitor$1.class
+academy\reyngardt\annotation\processor\CsvDataReader.class
+META-INF\services\javax.annotation.processing.Processor
