@@ -1,11 +1,9 @@
 package academy.reyngardt.annotation.processor;
 
 import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.ParameterizedTypeName;
-import com.squareup.javapoet.TypeName;
-import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.TypeSpec;
 import com.sun.source.util.Trees;
 import com.sun.tools.javac.code.Flags;
 import com.sun.tools.javac.processing.JavacProcessingEnvironment;
@@ -20,19 +18,15 @@ import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
-import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.ElementScanner9;
 import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
-import javax.tools.StandardLocation;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
 import java.io.Writer;
 import java.lang.reflect.Method;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -54,12 +48,18 @@ public class CsvDataInitVisitor extends ElementScanner9<Void, Void> {
 
     private final Names mNames;
 
+    private final ResourcesManager resourcesManager;
+
+    private ClassTypeManager classTypeManager = new ClassTypeManager();
+
     public CsvDataInitVisitor(ProcessingEnvironment environment, TypeElement typeElement) {
         super();
         final JavacProcessingEnvironment javacProcessingEnvironment = ((JavacProcessingEnvironment) jbUnwrap(environment));
         mTrees = Trees.instance(javacProcessingEnvironment);
         messager = environment.getMessager();
         mFiler = javacProcessingEnvironment.getFiler();
+        resourcesManager = new ResourcesManager(this.mFiler);
+        classTypeManager.setEnclosingType(typeElement.asType());
         mOriginElement = typeElement;
         mTreeMaker = TreeMaker.instance(javacProcessingEnvironment.getContext());
         mNames = Names.instance(javacProcessingEnvironment.getContext());
@@ -74,16 +74,13 @@ public class CsvDataInitVisitor extends ElementScanner9<Void, Void> {
                 jcVariableDecl.mods.flags &= ~Flags.PRIVATE;
             }
         });
+        classTypeManager.setFiledType(field.asType());
         final CsvDataInit csvDataInit = field.getAnnotation(CsvDataInit.class);
         String file = csvDataInit.file();
         Objects.requireNonNull(file);
-        List<ClassName> annotatedFieldTypeNameList = getAnnotatedFieldClassName(field.asType());
-        Objects.requireNonNull(annotatedFieldTypeNameList);
-        TypeName listOfAnnotatedClass = ParameterizedTypeName.get(annotatedFieldTypeNameList.get(0), annotatedFieldTypeNameList.get(1));
-        TypeName csvDataReaderOfAnnotatedClass = ParameterizedTypeName.get(ClassName.get(CsvDataReader.class), annotatedFieldTypeNameList.get(1));
-        String pathToFile = getFilePath(file);
-        initCsvDao.addStatement("$T dataReader = new $T<>($S,$T.class)", csvDataReaderOfAnnotatedClass, CsvDataReader.class, pathToFile, annotatedFieldTypeNameList.get(1))
-                .addStatement("$T data = dataReader.getData()", listOfAnnotatedClass)
+        String pathToFile = getFilePathFromStandardLocations(file);
+        initCsvDao.addStatement("$T dataReader = new $T<>($S,$T.class)", classTypeManager.getCsvReaderTypeName(), CsvDataReader.class, pathToFile, classTypeManager.getEntityClassName())
+                .addStatement("$T data = dataReader.getData()", classTypeManager.getFieldTypeName())
                 .beginControlFlow("if (data != null)")
                 .addStatement("(($T) this).$L = data", ClassName.get(mOriginElement),
                         field.getSimpleName())
@@ -118,47 +115,15 @@ public class CsvDataInitVisitor extends ElementScanner9<Void, Void> {
         }
     }
 
-    private List<ClassName> getAnnotatedFieldClassName(TypeMirror type) {
-        String[] array = type.toString().split("<", 0);
-        if (array.length > 1) {
-            array[1] = array[1].replace(">", "");
-            List<ClassName> res = new ArrayList<>();
-            List<String> firstType = getSplitsClassName(array[0]);
-            List<String> secondType = getSplitsClassName(array[1]);
-            res.add(ClassName.get(firstType.get(0), firstType.get(1)));
-            res.add(ClassName.get(secondType.get(0), secondType.get(1)));
-            return res;
-        }
-        return null;
-    }
 
-    private List<String> getSplitsClassName(String name) {
-        String[] value = name.split("\\.");
-        StringBuilder packageName = new StringBuilder();
-        StringBuilder simpleName = new StringBuilder();
-        List<String> res = new ArrayList<>();
-        for (int i = 0; i < value.length - 1; i++) {
-            packageName.append(value[i]);
-            if (i < value.length - 2) {
-                packageName.append(".");
-            }
-        }
-        simpleName.append(value[value.length - 1]);
-        res.add(packageName.toString());
-        res.add(simpleName.toString());
-        return res;
-    }
-
-    private String getFilePath(String file) {
+    private String getFilePathFromStandardLocations(String file) {
         try {
-            URL resource = mFiler.getResource(StandardLocation.CLASS_OUTPUT, "", file).toUri().toURL();
-            return new File(resource.getFile()).toPath().toString();
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
+            return resourcesManager.getFilePath(file);
+        } catch (ResourcesManagerException e) {
+            messager.printMessage(Diagnostic.Kind.ERROR, e.getMessage(), mOriginElement);
         }
         return null;
     }
-
 
     private <T> T jbUnwrap(T wrapper) {
         T unwrapped = null;

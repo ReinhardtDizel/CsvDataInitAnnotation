@@ -14,7 +14,6 @@ import java.util.List;
 /**
  * @author Mikhail Reyngardt 23.04.2022
  */
-
 @NoArgsConstructor
 public class CsvDataReader<T> {
 
