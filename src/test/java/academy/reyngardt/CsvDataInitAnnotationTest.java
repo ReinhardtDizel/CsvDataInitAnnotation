@@ -1,6 +1,7 @@
 package academy.reyngardt;
 
-import academy.reyngardt.annotation.processor.CsvDataInit;
+import academy.reyngardt.annotation.processor.CsvDao;
+import academy.reyngardt.annotation.processor.CsvDaoOperation;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -8,9 +9,9 @@ import org.junit.jupiter.api.Test;
 import java.lang.reflect.Field;
 import java.util.List;
 
-public class CsvDataInitAnnotationTest {
+public class CsvDataInitAnnotationTest implements CsvDaoOperation {
 
-    @CsvDataInit(file = "test.csv")
+    @CsvDao(file = "test1.csv")
     private List<TestUtils.TestType> data;
 
     @Test
@@ -18,8 +19,8 @@ public class CsvDataInitAnnotationTest {
     public void csvDataInitAnnotationTest() throws NoSuchFieldException {
 
         Field field = this.getClass().getDeclaredField("data");
-        CsvDataInit annotation = field.getAnnotation(CsvDataInit.class);
-        Assertions.assertEquals(annotation.file(), "test.csv");
+        CsvDao annotation = field.getAnnotation(CsvDao.class);
+        Assertions.assertEquals(annotation.file(), "test1.csv");
     }
 
     @Test

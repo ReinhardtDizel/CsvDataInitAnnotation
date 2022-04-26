@@ -1,7 +1,9 @@
 F:\Documents\Programming\CsvDataInitAnnotation\src\main\java\academy\reyngardt\annotation\processor\CsvDataReader.java
 F:\Documents\Programming\CsvDataInitAnnotation\src\main\java\academy\reyngardt\annotation\processor\ResourcesManagerException.java
-F:\Documents\Programming\CsvDataInitAnnotation\src\main\java\academy\reyngardt\annotation\processor\CsvDataInit.java
-F:\Documents\Programming\CsvDataInitAnnotation\src\main\java\academy\reyngardt\annotation\processor\CsvDataInitProcessor.java
+F:\Documents\Programming\CsvDataInitAnnotation\src\main\java\academy\reyngardt\annotation\processor\CsvDaoOperation.java
+F:\Documents\Programming\CsvDataInitAnnotation\src\main\java\academy\reyngardt\annotation\processor\CsvDataWriter.java
+F:\Documents\Programming\CsvDataInitAnnotation\src\main\java\academy\reyngardt\annotation\processor\CsvDaoProcessor.java
 F:\Documents\Programming\CsvDataInitAnnotation\src\main\java\academy\reyngardt\annotation\processor\ResourcesManager.java
 F:\Documents\Programming\CsvDataInitAnnotation\src\main\java\academy\reyngardt\annotation\processor\ClassTypeManager.java
-F:\Documents\Programming\CsvDataInitAnnotation\src\main\java\academy\reyngardt\annotation\processor\CsvDataInitVisitor.java
+F:\Documents\Programming\CsvDataInitAnnotation\src\main\java\academy\reyngardt\annotation\processor\CsvDaoVisitor.java
+F:\Documents\Programming\CsvDataInitAnnotation\src\main\java\academy\reyngardt\annotation\processor\CsvDao.java

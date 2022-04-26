@@ -38,6 +38,10 @@ public class ClassTypeManager {
         return ParameterizedTypeName.get(ClassName.get(CsvDataReader.class), getEntityClassName());
     }
 
+    public TypeName getCsvWriterTypeName() {
+        return ParameterizedTypeName.get(ClassName.get(CsvDataWriter.class), getEntityClassName());
+    }
+
     public void setFiledType(TypeMirror typeMirror) {
         List<ClassName> nameList = null;
         String[] array = typeMirror.toString().split("<", 0);

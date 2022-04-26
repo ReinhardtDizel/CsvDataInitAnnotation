@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>academy.reyngardt</groupId>
-    <artifactId>CsvDataInitAnnotation</artifactId>
+    <artifactId>CsvDaoAnnotation</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>CsvDataInit.library</name>
+    <name>CsvDao.library</name>
     <description>Annotation for parse CSV file from resources dir and inject to Dao</description>
     <packaging>jar</packaging>
 

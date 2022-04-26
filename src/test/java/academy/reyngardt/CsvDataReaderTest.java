@@ -1,15 +1,13 @@
 package academy.reyngardt;
 
 import academy.reyngardt.annotation.processor.CsvDataReader;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.List;
 
 public class CsvDataReaderTest {
 
-    private final String absolutePath = TestUtils.getPathToFile("test.csv");
+    private final String absolutePath = TestUtils.getPathToFile("test3.csv");
     private final CsvDataReader<TestUtils.TestType> csvDataReader = new CsvDataReader<>(absolutePath, TestUtils.TestType.class);
     private final List<TestUtils.TestType> data = csvDataReader.getData();
 

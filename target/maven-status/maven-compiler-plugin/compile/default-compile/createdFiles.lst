@@ -1,0 +1,13 @@
+academy\reyngardt\annotation\processor\CsvDaoProcessor.class
+academy\reyngardt\annotation\processor\ResourcesManager.class
+academy\reyngardt\annotation\processor\ResourcesManagerException.class
+academy\reyngardt\annotation\processor\CsvDaoVisitor.class
+academy\reyngardt\annotation\processor\CsvDaoVisitor$1.class
+academy\reyngardt\annotation\processor\CsvDataWriter.class
+academy\reyngardt\annotation\processor\ClassTypeManager.class
+academy\reyngardt\annotation\processor\CsvDao.class
+academy\reyngardt\annotation\processor\CsvDataReader.class
+academy\reyngardt\annotation\processor\ClassTypeManager$UsedType.class
+academy\reyngardt\annotation\processor\CsvDaoOperation.class
+academy\reyngardt\annotation\processor\ClassTypeManager$ClassTypeManagerUtils.class
+META-INF\services\javax.annotation.processing.Processor

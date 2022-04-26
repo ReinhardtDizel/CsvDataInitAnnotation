@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD})
-public @interface CsvDataInit {
+public @interface CsvDao {
     /**
      * @return name of csv file in resources dir
      */

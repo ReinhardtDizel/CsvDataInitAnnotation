@@ -15,12 +15,12 @@ import java.util.Set;
  * @author Mikhail Reyngardt 23.04.2022
  */
 @SupportedAnnotationTypes(
-        "academy.reyngardt.annotation.processor.CsvDataInit")
+        "academy.reyngardt.annotation.processor.CsvDao")
 @SupportedSourceVersion(SourceVersion.RELEASE_9)
 @AutoService(Processor.class)
-public class CsvDataInitProcessor extends AbstractProcessor {
+public class CsvDaoProcessor extends AbstractProcessor {
 
-    private final Map<TypeElement, CsvDataInitVisitor> mVisitors = new HashMap<>();
+    private final Map<TypeElement, CsvDaoVisitor> mVisitors = new HashMap<>();
 
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
@@ -30,7 +30,7 @@ public class CsvDataInitProcessor extends AbstractProcessor {
     @Override
     public Set<String> getSupportedAnnotationTypes() {
         Set<String> annotations = new LinkedHashSet<>();
-        annotations.add(CsvDataInit.class.getCanonicalName());
+        annotations.add(CsvDao.class.getCanonicalName());
         return annotations;
     }
 
@@ -44,18 +44,18 @@ public class CsvDataInitProcessor extends AbstractProcessor {
         if (annotations.isEmpty()) {
             return false;
         }
-        final Set<? extends Element> elements = roundEnvironment.getElementsAnnotatedWith(CsvDataInit.class);
+        final Set<? extends Element> elements = roundEnvironment.getElementsAnnotatedWith(CsvDao.class);
         for (final Element element : elements) {
             final TypeElement object = (TypeElement) element.getEnclosingElement();
-            CsvDataInitVisitor visitor = mVisitors.get(object);
+            CsvDaoVisitor visitor = mVisitors.get(object);
             if (visitor == null) {
-                visitor = new CsvDataInitVisitor(processingEnv, object);
+                visitor = new CsvDaoVisitor(processingEnv, object);
                 mVisitors.put(object, visitor);
             }
             element.accept(visitor, null);
         }
 
-        for (final CsvDataInitVisitor visitor : mVisitors.values()) {
+        for (final CsvDaoVisitor visitor : mVisitors.values()) {
             visitor.brewJava();
         }
 
