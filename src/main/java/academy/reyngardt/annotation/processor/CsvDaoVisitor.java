@@ -97,7 +97,7 @@ public class CsvDaoVisitor extends ElementScanner9<Void, Void> {
                 .addField(csvDaoReaderField.build())
                 .addField(csvDaoWriterField.build())
                 .addInitializerBlock(initCsvDao.build())
-                .addMethod(MethodSpec.methodBuilder("commit")
+                .addMethod(MethodSpec.methodBuilder("write")
                         .addModifiers(Modifier.PUBLIC)
                         .addCode(commitMethod.build())
                         .build())

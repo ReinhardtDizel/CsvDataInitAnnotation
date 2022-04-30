@@ -1,7 +1,7 @@
 package academy.reyngardt;
 
 import academy.reyngardt.annotation.processor.CsvDao;
-import academy.reyngardt.annotation.processor.CsvDaoOperation;
+import academy.reyngardt.annotation.processor.CsvDaoRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.lang.reflect.Field;
 import java.util.List;
 
-public class CsvDataInitAnnotationTest implements CsvDaoOperation {
+public class CsvDataInitAnnotationTest implements CsvDaoRepository {
 
     @CsvDao(file = "test1.csv")
     private List<TestUtils.TestType> data;

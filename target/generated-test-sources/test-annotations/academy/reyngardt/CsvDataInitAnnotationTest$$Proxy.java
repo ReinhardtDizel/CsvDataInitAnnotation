@@ -21,7 +21,7 @@ abstract class CsvDataInitAnnotationTest$$Proxy {
     }
   }
 
-  public void commit() {
+  public void write() {
     dataWriter.writeListOfCsvBeanToFile(((CsvDataInitAnnotationTest) this).data);
   }
 }

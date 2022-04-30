@@ -45,7 +45,7 @@
     <property name="java.class.path" value="C:\Program Files\JetBrains\IntelliJ IDEA 2021.2\plugins\maven\lib\maven3\boot\plexus-classworlds-2.6.0.jar;C:\Program Files\JetBrains\IntelliJ IDEA 2021.2\plugins\maven\lib\maven3\boot\plexus-classworlds.license"/>
     <property name="java.vm.specification.version" value="11"/>
     <property name="sun.arch.data.model" value="64"/>
-    <property name="sun.java.command" value="org.codehaus.classworlds.Launcher -Didea.version=2021.2 verify"/>
+    <property name="sun.java.command" value="org.codehaus.classworlds.Launcher -Didea.version=2021.2 package"/>
     <property name="java.home" value="C:\Program Files\JetBrains\IntelliJ IDEA 2021.2\jbr"/>
     <property name="user.language" value="ru"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
@@ -63,7 +63,7 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase name="csvDataInitAnnotationTest" classname="academy.reyngardt.CsvDataInitAnnotationTest" time="0"/>
+  <testcase name="csvDataInitAnnotationTest" classname="academy.reyngardt.CsvDataInitAnnotationTest" time="0.001"/>
   <testcase name="csvDataInitAnnotationDataIsCorrectTest" classname="academy.reyngardt.CsvDataInitAnnotationTest" time="0"/>
   <testcase name="csvDataInitAnnotationFieldNotNullTest" classname="academy.reyngardt.CsvDataInitAnnotationTest" time="0.001"/>
 </testsuite>

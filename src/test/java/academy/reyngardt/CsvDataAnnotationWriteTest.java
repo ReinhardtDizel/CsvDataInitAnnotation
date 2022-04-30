@@ -1,13 +1,14 @@
 package academy.reyngardt;
 
 import academy.reyngardt.annotation.processor.CsvDao;
-import academy.reyngardt.annotation.processor.CsvDaoOperation;
+import academy.reyngardt.annotation.processor.CsvDaoRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-public class CsvDataAnnotationWriteTest implements CsvDaoOperation {
+
+public class CsvDataAnnotationWriteTest implements CsvDaoRepository {
 
     @CsvDao(file = "test.csv")
     private List<TestUtils.TestType> data;
@@ -16,7 +17,7 @@ public class CsvDataAnnotationWriteTest implements CsvDaoOperation {
     public void csvDataWriteFileTest() {
         TestUtils.TestType test = new TestUtils.TestType("write-test1", "write-test2", "write-test3", "write-test4");
         data.add(test);
-        commit();
+        write();
 
         Assertions.assertEquals(data.get(0).getTest1(), "test1");
         Assertions.assertEquals(data.get(0).getTest2(), "test2");
